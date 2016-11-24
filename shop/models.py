@@ -9,6 +9,8 @@ git remote add origin https://github.com/luoying1105/zhufang.git
 git push -u origin master
 
 """
+
+
 # 类型
 class Category(models.Model):  # 种类
     name = models.CharField(max_length=200,
@@ -32,7 +34,7 @@ class Category(models.Model):  # 种类
 
 # 户型
 class ApartmentLayout(models.Model):
-    name = models.CharField(max_length=200,
+    name = models.CharField('装修质量', max_length=200,
                             db_index=True)
     slug = models.SlugField(max_length=200,
                             db_index=True,
@@ -44,9 +46,11 @@ class ApartmentLayout(models.Model):
         verbose_name_plural = 'Layouts'
 
     def __str__(self):
-        return self.name
+        return '{}小区{}'.format(self.name, self.address)
+        # 3室2厅1卫 整租69㎡ 向南 高层/共16层 精装修 普通住宅
 
 
+# 设备
 class Device(models.Model):
     name = models.CharField(max_length=200,
                             db_index=True)
@@ -100,7 +104,7 @@ class Updown(models.Model):
         verbose_name_plural = 'cities'
 
     def __str__(self):
-        return self.name
+        return '{}小区{}'.format(self.name, self.address)
 
     def get_absolute_url(self):
         return reverse('shop:dashboard_for_updown',
@@ -131,6 +135,7 @@ class City(models.Model):
     # 校区
     campus = models.ManyToManyField(Campus, related_name='campus_locate')
     distance = models.CharField('与校区距离', max_length=200, db_index=True)
+    locations = models.ForeignKey(Administrative_division, related_name='lactional')
 
     class Meta:
         ordering = ('name',)
@@ -138,7 +143,7 @@ class City(models.Model):
         verbose_name_plural = 'cities'
 
     def __str__(self):
-        return self.name
+        return '该住房位于 {}{}附近学校为{}'.format(self.name, self.locations, self.campus)
 
     def get_absolute_url(self):
         return reverse('shop:dashboard_for_city',
@@ -153,11 +158,16 @@ class Product(models.Model):
     # 设施 多对多
     device = models.ManyToManyField(Device, related_name='device')
     # city
-    city_name = models.ForeignKey(City, related_name='city_locate')
+    locate = models.ForeignKey(City, related_name='city_locate')
 
     name = models.CharField('商品名', max_length=200, db_index=True)
     slug = models.SlugField('链接地址', max_length=200, db_index=True)
     image = models.ImageField('商品图像', upload_to='products/%Y/%m/%d', blank=True)
+    bedroom = models.IntegerField('卧室数量')
+    living_room = models.IntegerField('卧室数量', default=0)
+    tolet = models.IntegerField('卫生间数量', default=1)
+    orientations = models.CharField('房间朝向', max_length=20, default='朝南')
+    height = models.IntegerField('房间层高', default=0)
     description = models.TextField('描述', blank=True)
     price = models.DecimalField('价格', max_digits=10, decimal_places=2)  # 小数位数
     stock = models.PositiveIntegerField('库存', )
