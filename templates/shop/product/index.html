@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    index
+{% endblock %}
+
+{% block content %}
+    <div id="navbar-top" class="navbar-top navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <img src="/static/image/logo.png"><a href="/" class="navbar-brand" style="height: 10px">校园租</a>
+                <!--<img src="/assets/img/bl.png">-->
+            </div>
+            <p class="navbar-text navbar-right co-brand hidden-xs"><img src="/static/image/logo.png"></p>
+        </div>
+    </div>
+    <header id="top-header" class="top-header jumbotron"
+            style="background-image: url('/static/image/banner_bg.png'); background-repeat: no-repeat;background-size: cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="page-header">
+                        <h1>租房网</h1>
+                        <p class="lead">好房子都在这里啦！</p>
+                    </div>
+                    <div class="features media">
+                        <h5 class="media-left">快捷入口：</h5>
+                        <div class="media-body">
+                            <p class="coms">
+                                <a target="_blank" href="#"
+                                   class="label label-default label-ali">阿里</a>
+                                <!-- <a href="/company/腾讯" class="label label-default label-tencent" onclick="_hmt.push(['_trackEvent', 'coms', 'click', '腾讯'])">腾讯</a> -->
+                                <a target="_blank" href="#"
+                                   class="label label-default label-baidu">百度</a>
+                                <a target="_blank" href="http://company.liepin.com/3264402?mscid=b_o_0001"
+                                   class="label label-default label-sina"
+                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '金山'])">金山</a>
+                                <a target="_blank" href="http://company.liepin.com/856639?mscid=b_o_0001"
+                                   class="label label-default label-sohu"
+                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '迅雷'])">迅雷</a>
+                                <a target="_blank" href="http://company.liepin.com/6429309?mscid=b_o_0001"
+                                   class="label label-default label-360"
+                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '360'])">360</a>
+                                <!-- <a href="/company/小米" class="label label-default label-xiaomi" onclick="_hmt.push(['_trackEvent', 'coms', 'click', '小米'])">小米</a> -->
+                                <a target="_blank" href="http://company.liepin.com/947003?mscid=b_o_0001"
+                                   class="label label-default label-lenovo"
+                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '畅游'])">畅游</a>
+                            </p>
+                            <p class="salary">
+                                <a href="/salary/10" class="label label-default"
+                                   onclick="_hmt.push(['_trackEvent', 'salary', 'click', '10万起'])">10万起</a>
+                                <a href="/salary/20" class="label label-default"
+                                   onclick="_hmt.push(['_trackEvent', 'salary', 'click', '20万起'])">20万起</a>
+                                <a href="/salary/30" class="label label-default"
+                                   onclick="_hmt.push(['_trackEvent', 'salary', 'click', '30万起'])">30万起</a>
+                                <a href="/salary/50" class="label label-default"
+                                   onclick="_hmt.push(['_trackEvent', 'salary', 'click', '50万起'])">50万起</a>
+                                <a href="/salary/土豪" class="label label-default"
+                                   onclick="_hmt.push(['_trackEvent', 'salary', 'click', '土豪'])">土豪</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="newest-jobs container">
+        <div class="page-header">
+            <h3>最新职位
+                <small class="select-region pull-right">区域：
+                    <a href="/" onclick="_hmt.push(['_trackEvent', 'region', 'click', '全部'])">[全部]</a>
+                    {% for city in cities %}
+                        <a href="">
+                        {{ city.name }}
+                        </a>
+                    {% endfor %}
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            其他
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/city/重庆"
+                                                       onclick="_hmt.push(['_trackEvent', 'region', 'click', '重庆'])">重庆</a>
+                            </li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/city/天津"
+                                                       onclick="_hmt.push(['_trackEvent', 'region', 'click', '天津'])">天津</a>
+                            </li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/city/大连"
+                                                       onclick="_hmt.push(['_trackEvent', 'region', 'click', '大连'])">大连</a>
+                            </li>
+                        </ul>
+                    </div>
+                </small>
+            </h3>
+
+        </div>
+    </section>
+
+    <section class="job-list">
+        <div class="container">
+            <div class="row">
+
+
+            </div><!-- .row -->
+
+
+        </div><!-- .container -->
+    </section>
+
+
+
+    <footer class="footer ">
+
+        <div class="powered-by-liepin text-center">
+            <span>独家合作伙伴：<a class="liepin-link text-hide" href="http://www.liepin.com/?mscid=b_o_0001" target="_blank"
+                            style="background-image:url(/assets/img/liepin-bottom.png);"
+                            onclick="_hmt.push(['_trackEvent', 'friend', 'click', '猎聘网'])">猎聘网</a></span>
+        </div>
+        <div class="container">
+            <div class="row footer-top">
+                <div class="col-sm-6 col-lg-6">
+                    <h4>
+                        <img src="/assets/img/logo.png">
+                    </h4>
+                    <p>Bootstrap中文网招聘频道展示的所有职位信息全部来自<a href="http://www.liepin.com/?mscid=b_o_0001">猎聘网</a>。</p>
+                </div>
+                <div class="col-sm-6  col-lg-5 col-lg-offset-1">
+                    <div class="row about">
+                        <div class="col-xs-4 col-md-3">
+                            <h4>关于</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="http://www.bootcss.com/about/">关于我们</a></li>
+                                <li><a href="http://www.bootcss.com/ad/">广告合作</a></li>
+                                <li><a href="http://www.bootcss.com/links/">友情链接</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-4 col-md-3">
+                            <h4>联系方式</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="http://weibo.com/bootcss" title="Bootstrap中文网官方微博" target="_blank">新浪微博</a>
+                                </li>
+                                <li><a href="mailto:admin@bootcss.com">电子邮件</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-4 col-md-3">
+                            <h4>旗下网站</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="http://www.golaravel.com/" target="_blank">Laravel中文网</a></li>
+                                <li><a href="http://www.ghostchina.com/" target="_blank">Ghost中国</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 hidden-xs">
+                            <h4>赞助商</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="http://www.ucloud.cn/" target="_blank">UCloud</a></li>
+                                <li><a href="https://www.upyun.com" target="_blank">又拍云</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr/>
+            <div class="row footer-bottom">
+                <ul class="list-inline text-center">
+                    <li><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></li>
+                    <li>京公网安备11010802014853</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/scrollup/2.4.0/jquery.scrollUp.min.js"></script>
+    <script>
+        ;
+        (function (window, document, $) {
+            // $(document).ready(function(){
+            //   $.adaptiveBackground.run()
+            // });
+
+            $.scrollUp({
+                scrollName: 'scrollUp', // Element ID
+                topDistance: '300', // Distance from top before showing element (px)
+                topSpeed: 300, // Speed back to top (ms)
+                animation: 'fade', // Fade, slide, none
+                animationInSpeed: 200, // Animation in speed (ms)
+                animationOutSpeed: 200, // Animation out speed (ms)
+                scrollText: '<i class="fa fa-angle-up"></i>', // Text for element
+                activeOverlay: false  // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+            });
+
+            $(window).scroll(function () {
+                if ($("#navbar-top").offset().top > 300) {
+                    $('.co-brand > img').attr('src', '/assets/img/liepin-logo50p.png');
+                } else {
+                    $('.co-brand > img').attr('src', '/assets/img/liepin-logo.png');
+                }
+            });
+        })(window, document, jQuery)
+    </script>
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd979e0116b6882c9cdc4cf2c8467d312' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+
+
+{% endblock %}

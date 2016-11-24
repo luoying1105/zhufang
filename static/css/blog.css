@@ -1,0 +1,24 @@
+#pingmu{
+    background-image: url("../themes/default/assets/images/banner.jpg");
+     background-size: cover;
+    background-repeat:no-repeat;
+    height: 300px;
+    top: 0px;
+}
+#pingmu > img {
+    width: 200px;
+    height: 200px;
+    margin-left: 80%;
+}
+#pingmu > h3 {
+    font-size:30px;
+    position: absolute;
+    top:20%;
+    left:10%;
+    transform: translate(20%,-50%);
+}
+.label.label-primary>a
+{
+    font-size:10px;
+    color: #ffffff;
+}
