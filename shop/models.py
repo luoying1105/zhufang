@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 """
 git init
 git add .
-git commit -m "first commit"
+git commit -m "单元测试-判断url正确性"
 git remote add origin https://github.com/luoying1105/zhufang.git
 git push -u origin master
 
