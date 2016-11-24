@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.models import User
 """
 git init
 git add .
@@ -32,7 +32,7 @@ class Category(models.Model):  # 种类
         return self.name
 
 
-# 户型
+# 装修类型
 class ApartmentLayout(models.Model):
     name = models.CharField('装修质量', max_length=200,
                             db_index=True)
@@ -46,7 +46,7 @@ class ApartmentLayout(models.Model):
         verbose_name_plural = 'Layouts'
 
     def __str__(self):
-        return '{}小区{}'.format(self.name, self.address)
+        return self.name
         # 3室2厅1卫 整租69㎡ 向南 高层/共16层 精装修 普通住宅
 
 
@@ -110,7 +110,17 @@ class Updown(models.Model):
         return reverse('shop:dashboard_for_updown',
                        args=[self.id, self.slug])
 
+#户型
+class Layout(models.Model):
+    bedroom_count = models.IntegerField(default=1)
+    bashroom_count = models.IntegerField(default=1)
+    livingroom_count = models.IntegerField(default=0)
+    slug = models.SlugField(max_length=200,
+                            db_index=True,
+                            unique=True)
 
+    def __str__(self):
+        return '{}室{}厅{}卫'.format(str(self.bedroom_count),str(self.livingroom_count),str(self.bashroom_count))
 # 行政区域
 class Administrative_division(models.Model):
     name = models.CharField('行政区域', max_length=200,
@@ -118,10 +128,8 @@ class Administrative_division(models.Model):
     slug = models.SlugField(max_length=200,
                             db_index=True,
                             unique=True)
-    updown = models.ForeignKey(Updown, related_name='updown_locate')
-
     def __str__(self):
-        return '该住房位于 {}{}'.format(self.name, self.updown)
+        return self.name
 
 
 # 城市
@@ -132,18 +140,13 @@ class City(models.Model):
                             db_index=True,
                             unique=True)
 
-    # 校区
-    campus = models.ManyToManyField(Campus, related_name='campus_locate')
-    distance = models.CharField('与校区距离', max_length=200, db_index=True)
-    locations = models.ForeignKey(Administrative_division, related_name='lactional')
-
     class Meta:
         ordering = ('name',)
         verbose_name = 'city'
         verbose_name_plural = 'cities'
 
     def __str__(self):
-        return '该住房位于 {}{}附近学校为{}'.format(self.name, self.locations, self.campus)
+        return self.name
 
     def get_absolute_url(self):
         return reverse('shop:dashboard_for_city',
@@ -153,19 +156,26 @@ class City(models.Model):
 class Product(models.Model):
     # 多对一
     category = models.ForeignKey(Category, related_name='products')
-    # 户型
-    apartment_layout = models.ManyToManyField(ApartmentLayout, related_name='apartment')
+    # 装修质量
+    apartment_layout = models.ForeignKey(ApartmentLayout, related_name='apartment')
+    #户型
+    layout = models.ForeignKey(Layout,related_name="huxing")
     # 设施 多对多
     device = models.ManyToManyField(Device, related_name='device')
     # city
     locate = models.ForeignKey(City, related_name='city_locate')
+    # 校区
+    campus = models.ManyToManyField(Campus, related_name='campus_locate')
+    distance = models.CharField('与校区距离', max_length=200, db_index=True)
+    locations = models.ForeignKey(Administrative_division, related_name='lactional')
+    updown = models.ForeignKey(Updown, related_name='updown_locate')
+    #发布账户
+    author = models.ForeignKey(User,
+                               related_name='product_posts')
 
     name = models.CharField('商品名', max_length=200, db_index=True)
     slug = models.SlugField('链接地址', max_length=200, db_index=True)
     image = models.ImageField('商品图像', upload_to='products/%Y/%m/%d', blank=True)
-    bedroom = models.IntegerField('卧室数量')
-    living_room = models.IntegerField('卧室数量', default=0)
-    tolet = models.IntegerField('卫生间数量', default=1)
     orientations = models.CharField('房间朝向', max_length=20, default='朝南')
     height = models.IntegerField('房间层高', default=0)
     description = models.TextField('描述', blank=True)

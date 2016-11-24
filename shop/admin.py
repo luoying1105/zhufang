@@ -41,13 +41,29 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
-
 admin.site.register(City, CityAdmin)
-
 
 class CampusAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
-
 admin.site.register(Campus, CampusAdmin)
+
+
+class Administrative_divisionAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+
+admin.site.register(Administrative_division, Administrative_divisionAdmin)
+
+
+class UpdownAdmin(admin.ModelAdmin):
+    list_display = ['name', 'address', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+
+admin.site.register(Updown, UpdownAdmin)
+
+class LayoutAdmin(admin.ModelAdmin):
+    list_display = ['bedroom_count', 'bashroom_count', 'livingroom_count']
+    prepopulated_fields = {'slug': ('bedroom_count', 'bashroom_count', 'livingroom_count')}
+admin.site.register(Layout,LayoutAdmin)
