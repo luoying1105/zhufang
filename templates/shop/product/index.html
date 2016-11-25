@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-   主页
+    主页
 {% endblock %}
 
 {% block content %}
@@ -12,6 +12,26 @@
                 <!--<img src="/assets/img/bl.png">-->
             </div>
             <p class="navbar-text navbar-right co-brand hidden-xs"><img src="/static/image/logo.png"></p>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好 {{ request.user }} <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url "logout" %}">注销</a></li>
+                {% else %}
+                    <li><a href="{% url "login" %}">登录</a></li>
+                    <li><a href="{% url "logout" %}">注册</a></li>{% endif %}
+            </ul>
         </div>
     </div>
     <header id="top-header" class="top-header jumbotron"
@@ -24,7 +44,7 @@
                         <p class="lead">好房子都在这里啦！</p>
                     </div>
                     <div class="features media">
-                        <h5 class="media-left">快捷入口：</h5>
+                        <p class="media-left">快捷入口：</p>
                         <div class="media-body">
                             <p class="coms">
                                 <a target="_blank" href="#"
@@ -67,12 +87,12 @@
 
     <section class="newest-jobs container">
         <div class="page-header">
-            <h3>最新职位
+            <h3>最新发布
                 <small class="select-region pull-right">区域：
                     <a href="/" onclick="_hmt.push(['_trackEvent', 'region', 'click', '全部'])">[全部]</a>
                     {% for city in cities %}
                         <a href="">
-                        {{ city.name }}
+                            {{ city.name }}
                         </a>
                     {% endfor %}
                     <div class="dropdown">
@@ -97,19 +117,63 @@
 
         </div>
     </section>
+    <div class='container'>
+        <div class="row gallery-row">
+            {% for product in products %}
+                <a href="{{ product.get_absolute_url }}">
+                    <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="gallery-wrap">
+                            <div class="gallery-item gallery-item-square"
+                                 style="background-image: url('{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}')">
+                                <div class="gallery-item-overlay"></div>
+                                <div class="gallery-item-ribbon"></div>
+                                <div class="gallery-item-text text-center">
+                                    <p>{{ product.name|linebreaks|truncatechars:15 }}</p>
+                                    <p>{{ product.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>{% endfor %}
+        </div>
 
-    <section class="job-list">
-        <div class="container">
-            <div class="row">
+
+        <div class="row gallery-row">
+
+        </div>
+    </div>
+     <div class='container'>
+     <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <h1 class="gallery-title">查看校区附近房子</h1>
+            <h3 class="gallery-subtitle">Get access to potential teammates that have complementary skillsets</h3>
+        </div>
+    </div>
+
+        <div class="row gallery-row">
+            {% for product in campus %}
+                <a href="#">
+                    <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="gallery-wrap">
+                            <div class="gallery-item gallery-item-square"
+                                 style="background-image: url('{% if product.img %}{{ product.img.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}')">
+                                <div class="gallery-item-overlay"></div>
+                                <div class="gallery-item-ribbon"></div>
+                                <div class="gallery-item-text text-center">
+                                    <p>{{ product.name|linebreaks|truncatechars:15 }}</p>
+                                    <p>{{ product.description|linebreaks|truncatechars:25 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>{% endfor %}
+        </div>
 
 
-            </div><!-- .row -->
+        <div class="row gallery-row">
 
-
-        </div><!-- .container -->
-    </section>
-
-
+        </div>
+    </div>
 
     <footer class="footer ">
 
@@ -122,9 +186,9 @@
             <div class="row footer-top">
                 <div class="col-sm-6 col-lg-6">
                     <h4>
-                        <img src="/assets/img/logo.png">
+                        <img src="/static/image/logo.png">
                     </h4>
-                    <p>Bootstrap中文网招聘频道展示的所有职位信息全部来自<a href="http://www.liepin.com/?mscid=b_o_0001">猎聘网</a>。</p>
+                    <p>所有的租房信息来自于<a href="http://www.liepin.com/?mscid=b_o_0001">关你屁事</a>。</p>
                 </div>
                 <div class="col-sm-6  col-lg-5 col-lg-offset-1">
                     <div class="row about">

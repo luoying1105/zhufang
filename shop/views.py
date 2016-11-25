@@ -26,14 +26,18 @@ def product_list(request, category_slug=None):
 @login_required
 def dashboard(request, city_slug=None):
     city = City.objects.all()[:5]  # 只选前五个
-    products = Product.objects.filter(available=True)  # 拿取已经上架的全部商品
+    products = Product.objects.filter(available=True)[:3]  # 拿取3个已经上架的全部商品
+    campus = Campus.objects.all()[:3]
     if city_slug:  # 我们将使用一个可选的category_slug参数可选的过滤产品给定的类别。
         city = get_object_or_404(City, slug=city_slug)
         products = products.filter(city_name=city)
     return render(request,
                   'shop/product/index.html',
                   {'section': 'dashboard',
-                   'cities': city})
+                   'cities': city,
+                   'products': products,
+                   'campus':campus
+                   })
 
 
 # 就是商品的详细信息页面

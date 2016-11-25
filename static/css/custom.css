@@ -1,22 +1,109 @@
 
-.ui.segment.rectangle {
-  height: 228px;
-  width: 1440px;
-  background: url('../image/banner_bg.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+@media (max-width: 992px) {
+    .footer-wrapper {
+        height: 600px
+    }
 }
 
-.ui.container.segment.ziliao {
-  width: 878px;
-  height: 403px;
-  position: absolute;
-  top:188px;
-  left:218px;
+.gallery-title {
+    text-align: center;
+    color: #444;
+    font-size: 2em;
+    font-weight: 600;
+    margin-top: 35px;
+    margin-bottom: 15px
 }
 
-.ui.segment.rectangle > .ui.header.xinxi {
-  position: absolute;
-  top:103px;
-  left:218px;
+.gallery-subtitle {
+    text-align: center;
+    color: #9c9c9c;
+    font-size: 1.2em;
+    margin: 0 0 35px 0;
+    font-weight: normal
+}
+
+.gallery-row {
+    overflow: hidden;
+    margin-bottom: 30px
+}
+
+.gallery-row .gallery-wrap:before {
+    content: "";
+    display: block;
+    padding-top: 100%
+}
+
+.gallery-row .gallery-wrap {
+    position: relative;
+    width: 100%
+}
+
+.gallery-row .gallery-wrap .gallery-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center
+}
+
+.gallery-row .gallery-wrap .gallery-item .gallery-item-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    z-index: 15;
+    -webkit-align-self: center;
+    -moz-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center
+}
+
+.gallery-row .gallery-wrap .gallery-item .gallery-item-text p {
+    margin: 0;
+    color: #FFF
+}
+
+.gallery-row .gallery-wrap .gallery-item .gallery-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3)
+}
+
+.gallery-row .gallery-wrap .gallery-item .gallery-item-ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20
+}
+
+.gallery-row .gallery-wrap .gallery-item .gallery-item-ribbon:hover {
+    border-top: solid 10px #feb600;
+    cursor: pointer
+}
+
+.gallery-item-event {
+    height: 80% !important
 }

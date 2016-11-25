@@ -1,38 +1,57 @@
-{% extends "shop/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+    list
 {% endblock %}
 
 {% block content %}
     <div id="navbar-top" class="navbar-top navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <img src="/static/image/logo.png"><a href="/" class="navbar-brand">校园租</a>
+                <img src="/static/image/logo.png"><a href="/" class="navbar-brand" style="height: 10px">校园租</a>
                 <!--<img src="/assets/img/bl.png">-->
             </div>
             <p class="navbar-text navbar-right co-brand hidden-xs"><img src="/static/image/logo.png"></p>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好 {{ request.user }} <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url "logout" %}">注销</a></li>
+                {% else %}
+                    <li><a href="{% url "login" %}">登录</a></li>
+                    <li><a href="{% url "logout" %}">注册</a></li>{% endif %}
+            </ul>
         </div>
     </div>
-    <header id="top-header" class="top-header jumbotron" style="background-image: url('/static/image/banner_bg.png'); background-repeat: no-repeat;background-size: cover">
+    <header id="top-header" class="top-header jumbotron"
+            style="background-image: url('/static/image/banner_bg.png'); background-repeat: no-repeat;background-size: cover">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="page-header">
-                        <h1>招聘/求职</h1>
-                        <p class="lead">好工作都在这里啦！</p>
+                        <h1>租房网</h1>
+                        <p class="lead">好房子都在这里啦！</p>
                     </div>
                     <div class="features media">
-                        <h5 class="media-left">快捷入口：</h5>
+                        <p class="media-left">快捷入口：</p>
                         <div class="media-body">
                             <p class="coms">
-                                <a target="_blank" href="http://company.liepin.com/1072424?mscid=b_o_0001"
-                                   class="label label-default label-ali"
-                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '阿里'])">阿里</a>
+                                <a target="_blank" href="#"
+                                   class="label label-default label-ali">阿里</a>
                                 <!-- <a href="/company/腾讯" class="label label-default label-tencent" onclick="_hmt.push(['_trackEvent', 'coms', 'click', '腾讯'])">腾讯</a> -->
-                                <a target="_blank" href="http://company.liepin.com/884492?mscid=b_o_0001"
-                                   class="label label-default label-baidu"
-                                   onclick="_hmt.push(['_trackEvent', 'coms', 'click', '百度'])">百度</a>
+                                <a target="_blank" href="#"
+                                   class="label label-default label-baidu">百度</a>
                                 <a target="_blank" href="http://company.liepin.com/3264402?mscid=b_o_0001"
                                    class="label label-default label-sina"
                                    onclick="_hmt.push(['_trackEvent', 'coms', 'click', '金山'])">金山</a>
@@ -87,29 +106,34 @@
                     <div id="main" class="product-list">
                         <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
                         <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                {% for product in products %}
+                            {% for product in products %}
+                                <div class="col-sm-6 col-md-4">
+
                                     <div class="thumbnail">
-                                        <img src="
-
-
-                                                {% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-                                        <a href="{{ product.image.url }}">{{ product.image.url }}</a>
-
+                                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
                                         <div class="caption">
-                                            <h3>{{ product.name }}</h3>
+                                            <h3>{{ product.name|linebreaks|truncatechars:20 }}</h3>
                                             <h6> ${{ product.price }}</h6>
-                                            <p>{{ product.description }}</p>
+                                            <p>{{ product.description|truncatechars_html:30 }}</p>
                                             <p>
                                                 <a href="{{ product.get_absolute_url }}" class="btn btn-primary"
                                                    role="button">详细信息</a>
                                                 <a href="#" role="button">Button</a>
                                             </p>
                                         </div>
-                                    </div>{% endfor %}
-                            </div>
+                                    </div>
+                                </div>{% endfor %}
+
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+                        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+                        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                        <div class="clearfix visible-xs-block"></div>
+                        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+                    </div>
+
                 </div>
             </div>
         </div>

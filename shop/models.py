@@ -1,10 +1,11 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 """
 git init
 git add .
-git commit -m "单元测试-判断url正确性"
+git commit -m "修改model以及template index list"
 git remote add origin https://github.com/luoying1105/zhufang.git
 git push -u origin master
 
@@ -74,6 +75,8 @@ class Campus(models.Model):
     slug = models.SlugField(max_length=200,
                             db_index=True,
                             unique=True)
+    img = models.ImageField()
+    description = models.CharField(max_length=300,default='宇宙中心五道口附近，方便出行、购物，适合陪读、考研、校外住宿。')
 
     class Meta:
         ordering = ('name',)
@@ -184,6 +187,7 @@ class Product(models.Model):
     available = models.BooleanField('是否上架', default=True)
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('发布时间', auto_now=True)
+    tags = TaggableManager()#标签
 
     def get_absolute_url(self):
         return reverse('shop:product_detail',
