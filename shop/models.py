@@ -5,7 +5,7 @@ from taggit.managers import TaggableManager
 """
 git init
 git add .
-git commit -m "修改model以及template index list"
+git commit -m "修改了index"
 git remote add origin https://github.com/luoying1105/zhufang.git
 git push -u origin master
 
@@ -87,8 +87,8 @@ class Campus(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:campus_for_city',
-                       args=[self.slug])
+        return reverse('shop:campus_list',
+                       args=[self.id, self.slug])
 
 
 # 小区 路段
