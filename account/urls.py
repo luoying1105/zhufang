@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
 from django.contrib.auth import views as auth_view
-from shop.views import dashboard
+from .views import dashboard
 
 urlpatterns = [
     # post views
@@ -38,5 +38,8 @@ urlpatterns = [
     url(r'^password-reset/complete/$',
         auth_view.password_reset_complete,
         name='password_reset_complete'),
+
+    url(r'^register/$', views.register, name='register'),
+    url(r'^edit/$', views.edit, name='edit'),
 
 ]

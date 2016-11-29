@@ -14,12 +14,11 @@ def product_list(request, category_slug=None,):
     apartment_layout = ApartmentLayout.objects.all()
     device = Device.objects.all()
     products = Product.objects.filter(available=True)  # 拿取已经上架的全部商品
+
     if category_slug:  # 我们将使用一个可选的category_slug参数可选的过滤产品给定的类别。
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-    if request.compus.slug:
-        compus = get_object_or_404(Campus, slug=request.campus.slug)
-        products = products.filter(campus=compus)
+
     return render(request,
                   'shop/product/list.html',
                   {'category': category,
