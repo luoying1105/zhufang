@@ -59,12 +59,12 @@
 				<div class="ui grid">
 					<div class="twelve wide column">
 						<div class="ui image">
-							<img src="/static/image/3详情页/bigimg.png" />
+							 <img src="{% if product.image %}{{ product.image.url }}{% else %}
+{% static "img/no_image.png" %}{% endif %}" width="600px">
 						</div>
 						<div class="ui nine column grid">
 							<div class="column" style="margin-left: 14px;">
-								<img src="/static/image/3详情页/img1.png" / style="border: 1px solid #fcc416;
-border-radius: 5px;">
+								<img src="/static/image/3详情页/img1.png"  style="border: 1px solid #fcc416;border-radius: 5px;">
 							</div>
 							<div class="column">
 								<img src="/static/image/3详情页/img2.png" />
@@ -93,36 +93,32 @@ border-radius: 5px;">
 						</div>
 						<div class="ui basic segment container" id="middle_bottom_content">
 							<h3 class="ui header">关于此房源</h3>
-							<p><b>周边：</b>从北门出，周边生活设施齐全，交通方便，步行10分钟即可到达圣熙八号购物中心，美廉美超市，周六日可以买菜做饭宴请好友；各类饭店应有尽有，医院、学校等生活设施都在附近；紧邻大学，白天蹭课，听讲座、晚上跑步溜达再好不过！弥补大学的美好时光。 </p>
-							<br />
-							<p><b>交通：</b>步行至地铁15号线六道口站约15分钟；从小区北门出，周边公交线路四通八达，490、392、103、419、913等等，途径北京林业大学、地质大学等著名学府，出行非常方便；四通八达；如果近距离出行可以选择小区门口的市政绿色出行自行车，健康环保！ </p>
+							<p><b>周边：</b>{{ product.description|truncatechars_html:100|linebreaks }} </p>
 						</div>
 					</div>
 					<div class="four wide column" style="padding-left: 0px;">
 						<div class="ui clearing basic segment">
-							<h1 class="ui left floated header">3750<h4 class="ui left floated header" >元/月</h4></h1>
-							<h4 class="ui right floated header">整租</h4>
+							<h1 class="ui left floated header">{{ product.price }}<h4 class="ui left floated header" >元/月</h4></h1>
+							<h4 class="ui right floated header">{{ product.category.name }}</h4>
 
 						</div>
 						<div class="ui basic segment">
 							<h3 class="ui header">房屋</h3>
-							<p>1室1厅1卫 - 45m<sup>2</sup> - 高层（共6层）</p>
-							<p>中等装修 - 朝向南 - 普通住宅</p>
+							<p>{{ product.layout }} - 45m<sup>2</sup> - （共{{ product.height }}层）</p>
+							<p>{{ product.apartment_layout.name }} - {{ product.orientations }} - {{ product.campus }}</p>
 							<h3 class="ui header">地址</h3>
-							<p>清华东路27号院</p>
-							<p>距北京大学500米</p>
+							<p>{{ product.locations }}</p>
+							<p>{{ product.distance }}</p>
 							<h3 class="ui header">小区</h2>
-							<p>海淀 - 交通大学 - 德宝新园</p>
+							<p>{{ product.locate.name }} - {{ product.campus.name }} - {{ product.updown.address }}</p>
 						</div>	
 						<button class="ui fluid button" id="button_1" style="border-top-left-radius: 0px;border-top-right-radius: 0px;"><h3 class="ui header">我要看房</h3></button>
 							<div class="ui basic segment container" style="margin-top: 40px;">
 								<h3 class="ui header">设施</h3>
 								<ul>
-									<li><span>电视</span></li>
-									<li><span>网络</span></li>
-									<li><span>淋浴</span></li>
-									<li><span>空调</span></li>
-									<li><span>暖气</span></li>
+
+									<li><span>{{ product.device}}</span></li>
+
 								</ul>
 							</div>
 						</div>
